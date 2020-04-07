@@ -28,6 +28,9 @@ Use the **Add** method to add **FileDialogFilter** objects to the **FileDialogFi
 
 The following example uses the **Clear** method to clear the collection and then adds filters to the collection. The **Clear** method completely empties the collection; however, if you do not add any filters to the collection after you clear it, the "All files (*.*)" filter is added automatically.
 
+> [!NOTE] 
+> The **[Clear](office.filedialogfilters.clear)**, **[Add](office.filedialogfilters.add)**, or **[Delete](office.filedialogfilters.delete)** methods only apply to the File Picker and File Open dialogs. These methods do **not** work when applied to the **Save As** and  **Folder Picker** objects. For example, **Application.FileDialog([msoFileDialogSaveAs](office.msofiledialogtype.md)).Filters.Clear** will result in a run-time error.
+
 ```vb
 Sub Main() 
  
@@ -69,8 +72,8 @@ Sub Main()
                 MsgBox "Path name: " & vrtSelectedItem 
  
             Next vrtSelectedItem 
-        'The user pressed Cancel. 
         Else 
+            'The user pressed Cancel. 
         End If 
     End With 
  
