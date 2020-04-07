@@ -14,12 +14,12 @@ localization_priority: Normal
 
 # FileDialog object (Office)
 
-Provides file dialog box functionality similar to the functionality of the standard **Open** and **Save** dialog boxes found in Microsoft Office applications.
+Provides a file dialog box (pop-up window) functionality similar to the functionality of the standard **Open** and **Save** dialog boxes found in Microsoft Office (and windows) applications.
 
 
 ## Remarks
 
-Use the **FileDialog** property to return a **FileDialog** object. The **FileDialog** property is located in each individual Office application's **Application** object. The property takes a single argument, _DialogType_, that determines the type of **FileDialog** object that the property returns. There are four types of **FileDialog** object:
+There are four types of the **FileDialog** object, as defined through the **[MsoFileDialogType](office.msofiledialogtype.md)** constant. The four dialog object boxes are:
 
 - **Open** dialog box: lets users select one or more files that you can then open in the host application by using the **Execute** method.
     
@@ -34,7 +34,7 @@ Each host application can only create a single instance of the **FileDialog** ob
 
 ## Example
 
-To display a file dialog box by using the **FileDialog** object, you must use the **Show** method. After a dialog box is displayed, no code executes until the user dismisses the dialog box. The following example creates and displays a **File Picker** dialog box, and then displays each selected file in a message box.
+The file dialog box is displayed by calling the **FileDialog** object, **Show** method. After a dialog box is displayed, no code executes until the user dismisses the dialog box. The following example creates and displays a **File Picker** dialog box, and then displays each selected file in a message box.
 
 
 ```vb
@@ -59,17 +59,17 @@ Sub Main()
  'The user pressed the button. 
  If .Show = -1 Then 
  
- 'Step through each string in the FileDialogSelectedItems collection. 
- For Each vrtSelectedItem In .SelectedItems 
+    'Step through each string in the FileDialogSelectedItems collection. 
+    For Each vrtSelectedItem In .SelectedItems 
  
- 'vrtSelectedItem is aString that contains the path of each selected item. 
- 'You can use any file I/O functions that you want to work with this path. 
- 'This example displays the path in a message box. 
- MsgBox "The path is: " & vrtSelectedItem 
+        'vrtSelectedItem is aString that contains the path of each selected item. 
+        'You can use any file I/O functions that you want to work with this path. 
+        'This example displays the path in a message box. 
+        MsgBox "The path is: " & vrtSelectedItem 
  
- Next vrtSelectedItem 
- 'The user pressed Cancel. 
- Else 
+    Next vrtSelectedItem 
+ Else
+    'The user pressed Cancel.
  End If 
  End With 
  
