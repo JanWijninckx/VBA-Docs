@@ -16,6 +16,10 @@ localization_priority: Normal
 
 Removes all filters currently applied in a file dialog box.
 
+> [!NOTE] 
+> The **Clear** method only work for the File Picker and File Open dialogs. This methods does **not** work when applied to the **Save As** and  **Folder Picker** objects. For example, **Application.FileDialog([msoFileDialogSaveAs](office.msofiledialogtype.md)).Filters.Clear** will result in a run-time error.
+>
+> For an example on how to bring a filter in focus for the SaveAs dialog, see the **[Add](office.filedialogfilters.add)** method.
 
 ## Syntax
 
