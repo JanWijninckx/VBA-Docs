@@ -16,6 +16,9 @@ localization_priority: Normal
 
 Removes all filters currently applied in a file dialog box.
 
+> [!NOTE] 
+> The **Clear** method only works for the File Picker and File Open dialogs. This methods does **not** work when applied to the **Save As** and  **Folder Picker** objects. For example, **Application.FileDialog([msoFileDialogSaveAs](office.msofiledialogtype.md)).Filters.Clear** will result in a run-time error.
+>
 
 ## Syntax
 
@@ -26,33 +29,70 @@ _expression_ A variable that represents a **[FileDialogFilters](Office.FileDialo
 
 ## Example
 
-The following example iterates through the default filters of the **SaveAs** dialog box and displays the description of each filter that includes a Microsoft Excel file.
-
+The following example clears the filters followed by adding one filter:
 
 ```vb
-Sub Main() 
- 
- 'Declare a variable as a FileDialogFilters collection. 
- Dim fdfs As FileDialogFilters 
- 
- 'Declare a variable as a FileDialogFilter object. 
- Dim fdf As FileDialogFilter 
- 
- 'Set the FileDialogFilters collection variable to 
- 'the FileDialogFilters collection of the SaveAs dialog box. 
- Set fdfs = Application.FileDialog(msoFileDialogSaveAs).Filters 
- 
- 'Iterate through the description and extensions of each 
- 'default filter in the SaveAs dialog box. 
- For Each fdf In fdfs 
- 
- 'Display the description of filters that include 
- 'Microsoft Excel files 
- If InStr(1, fdf.Extensions, "xls", vbTextCompare) > 0 Then 
- MsgBox "Description of filter: " & fdf.Description 
- End If 
- Next fdf 
- 
+Sub sTestClear()
+'----------------------------------------------------------------------------------------
+' The msoFileDialogSaveAs dialog does NOT support file filters
+'----------------------------------------------------------------------------------------
+
+    Dim fd As FileDialog
+    Dim tWbkFullName As String
+
+    tWbkFullName = Application.ThisWorkbook.FullName
+    Set fd = Application.FileDialog(msoFileDialogFilePicker)
+    'Set fd = Application.FileDialog(msoFileDialogFolderPicker)
+    'Set fd = Application.FileDialog(msoFileDialogOpen)
+    'Set fd = Application.FileDialog(msoFileDialogSaveAs)
+    With fd
+        .InitialFileName = tWbkFullName
+        .AllowMultiSelect = False
+        .Filters.Clear
+        .Filters.Add "jpg files", "*.jpg"
+        
+        If .Show = -1 Then ' this pops up the MsoFileDialogType
+            ' User pressed the Action key, do your code
+        Else
+            ' User cancelled save.
+        End If
+    End With
+End Sub
+```
+
+The following example shows how to set a prefered file type in the SaveAs dialog:
+
+```vb
+Sub sSetPreferedSaveExtension()
+
+    Dim tWbkFullName As String
+    Dim tI As Long
+    Dim fd As FileDialog
+    Dim fdFilterObj As FileDialogFilter
+
+    tWbkFullName = Application.ThisWorkbook.FullName
+    Set fd = Application.FileDialog(msoFileDialogSaveAs)
+    
+    With fd
+        .InitialFileName = tWbkFullName
+        .AllowMultiSelect = False
+        ' --- .Clear, .Add & .Delete do not work with msoFileDialogSaveAs,
+        '     Therefore, scroll your prefered SaveAs file extension into focus
+        tI = 0
+        For Each fdFilterObj In .Filters
+            tI = tI + 1
+            If fdFilterObj.Extensions = "*.xlsb" Then
+                .FilterIndex = tI
+                Exit For  ' dropdown now at the right SaveAsType
+            End If
+        Next fdFilterObj
+        
+        If .Show = -1 Then ' this pops up the FileSaveAs Dialogue
+            ' User pressed the Action key, do your code
+        Else
+            ' User cancelled save.
+        End If
+    End With
 End Sub
 ```
 
