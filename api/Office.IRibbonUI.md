@@ -50,6 +50,7 @@ End Sub
 
 
 ## See also
+- to understand the full RibbonUI xml language syntax of objects (<ribbon ..), attributes (e.g. getEnabled ..) and methods please visit this page [Custom UI XML Markup Specification](https://docs.microsoft.com/en-us/openspecs/office_standards/ms-customui/31f152d6-2a5d-4b50-a867-9dbc6d01aa43)
 
 - [IRibbonUI object members](overview/library-reference/iribbonui-members-office.md)
 - [RibbonXML callbacks](https://docs.microsoft.com/previous-versions/office/developer/office-2007/aa722523(v=office.12))
