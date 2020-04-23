@@ -18,7 +18,8 @@ The code example in this topic shows how to add custom components to the ribbon 
 2. Add the following XML markup to the file and then close and save the file. 
     
    ```xml
-    <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui"> 
+    <!-- for Office 2007 use: "http://schemas.microsoft.com/office/2006/01/customui", for Office 2010+ use -->
+    <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui"> 
       <ribbon> 
         <tabs> 
           <tab id="CustomTab" label="My Tab"> 
@@ -87,5 +88,9 @@ The code example in this topic shows how to add custom components to the ribbon 
 - [Overview of the Office Fluent ribbon](overview-of-the-office-fluent-ribbon.md)
 - [Customize the Office Fluent ribbon by using a managed COM add-in](customize-the-office-fluent-ribbon-by-using-a-managed-com-add-in.md)
 - [Customize the Office Fluent ribbon by using a Visual Basic COM add-in](https://docs.microsoft.com/previous-versions/office/developer/office-2010/ff863131(v=office.14))
+
+- [Overview of the xml commands to markup your ribbon](https://docs.microsoft.com/en-us/previous-versions/office/developer/office-2007/aa338199(v=office.12))
+- [The xml schema of allowable commands](https://docs.microsoft.com/en-us/openspecs/office_standards/ms-customui2/daabc2cd-b3f5-4d32-9099-95d705f70f35)
+- [Ribbon xml editor tool to edit the xml in your docm, xslm etc](https://github.com/fernandreu/office-ribbonx-editor/releases/tag/v1.6) 
 
 [!include[Support and feedback](~/includes/feedback-boilerplate.md)]
